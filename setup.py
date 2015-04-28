@@ -7,13 +7,19 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='ifmo-celery-grader',
+    name='ifmo-edx-celery-grader',
     version='0.1',
     install_requires=[
         'django',
         'path.py',
+        'celery',
+        'requests',
+        'XBlock',
     ],
-    packages=['ifmo_celery_grader'],
+    packages=[
+        'ifmo_celery_grader',
+        'xblock_ant',
+    ],
     include_package_data=True,
     license='BSD License',
     description='Package provides celery grader.',
@@ -31,4 +37,9 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Internet :: WWW/HTTP',
     ],
+    entry_points={
+        'xblock.v1': [
+            'ifmo_xblock_ant = xblock_ant:AcademicNTXBlock',
+        ]
+    },
 )

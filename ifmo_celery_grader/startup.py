@@ -21,7 +21,7 @@ def _patch_variant_url(app_name, urls_module):
 
 
 def patch_urls():
-    for (app, urls) in [('lms', 'ifmo_sso.urls')]:
+    for (app, urls) in [('lms', 'ifmo_celery_grader.urls')]:
         try:
             _patch_variant_url(app, urls)
         except Exception:
@@ -29,9 +29,7 @@ def patch_urls():
 
 
 def run():
-
-    settings.CSRF_FAILURE_VIEW = 'ifmo_sso.views.csrf_failure'
-
     patch_templates()
     patch_urls()
+
 
