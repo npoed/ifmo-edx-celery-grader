@@ -18,6 +18,11 @@ class AntXBlockFields(object):
         scope=Scope.settings
     )
 
+    points = Float(
+        default=0,
+        scope=Scope.user_state,
+    )
+
     weight = Float(
         display_name="Problem Weight",
         help=("Defines the number of points each problem is worth. "

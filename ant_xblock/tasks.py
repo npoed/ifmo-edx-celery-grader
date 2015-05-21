@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from ifmo_celery_grader.tasks.helpers import GraderTaskBase, submit_task_grade
+from ifmo_celery_grader.tasks.helpers import GraderTaskBase, submit_task_grade, reserve_task
 from xmodule.modulestore.django import modulestore
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from courseware.models import StudentModule
@@ -95,20 +95,6 @@ def submit_ant_check(task, countdown=None):
     if countdown is None:
         countdown = task.grader_payload.get('ant_time_limit')*60
     return submit_task_grade(AntCheckTask, task, countdown=countdown)
-
-
-def reserve_task(xblock=None, save=False, grader_payload=None, system_payload=None, student_input=None, task_type=None):
-    task = GraderTask.create(grader_payload=grader_payload, student_input=student_input, task_type=task_type,
-                             system_payload=system_payload)
-    system_payload['task_id'] = task.task_id
-    task.system_payload = system_payload
-    # Double-write is done here, how this can be escaped?
-    task.save_now()
-    if xblock is not None:
-        xblock.celery_task_id = task.task_id
-        if save:
-            xblock.save_now()
-    return task
 
 
 def _update_module_state(module, state):
