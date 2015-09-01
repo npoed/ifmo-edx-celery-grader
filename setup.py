@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='ifmo-edx-celery-grader',
-    version='0.1',
+    version='0.9',
     install_requires=[
         'django',
         'path.py',
@@ -18,7 +18,6 @@ setup(
     ],
     packages=[
         'ifmo_celery_grader',
-        'xblock_ant',
     ],
     include_package_data=True,
     license='BSD License',
@@ -37,9 +36,4 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Topic :: Internet :: WWW/HTTP',
     ],
-    entry_points={
-        'xblock.v1': [
-            'ifmo_xblock_ant = xblock_ant:AcademicNTXBlock',
-        ]
-    },
 )
