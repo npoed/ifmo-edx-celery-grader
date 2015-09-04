@@ -18,6 +18,8 @@ setup(
     ],
     packages=[
         'ifmo_celery_grader',
+	'ifmo_celery_grader.tasks',
+	'ifmo_celery_grader.migrations',
     ],
     include_package_data=True,
     license='BSD License',
