@@ -156,8 +156,10 @@ class GraderTaskBase(Task):
                                            module_state_key=usage_key)
 
         # Сбрасываем приязанное к модулю (и XBlock'у) задание
+        # TODO Не менять модуль в task'е
         state = json.loads(module.state)
         state['celery_task_id'] = None
+        state['task_state'] = 'IDLE'
         module.state = json.dumps(state)
         module.save()
 
