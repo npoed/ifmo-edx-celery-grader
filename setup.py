@@ -8,7 +8,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='ifmo-edx-celery-grader',
-    version='3.0',
+    version='4.0',
     install_requires=[
         'django',
         'path.py',

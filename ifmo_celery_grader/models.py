@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.db import models, transaction
+from django.db import models
 from celery.states import PENDING
 from uuid import uuid4
 
@@ -51,6 +51,5 @@ class GraderTask(models.Model):
 
         return task
 
-    @transaction.autocommit
     def save_now(self):
         self.save()
