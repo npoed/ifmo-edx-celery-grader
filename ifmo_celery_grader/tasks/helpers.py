@@ -2,8 +2,6 @@
 
 from celery import Task
 from celery.states import SUCCESS, FAILURE, STARTED
-from courseware.models import StudentModule
-from ifmo_celery_grader.models import GraderTask
 from opaque_keys.edx.keys import CourseKey, UsageKey
 
 import json
@@ -46,6 +44,7 @@ class GraderTaskBase(Task):
         :return:
         """
 
+        from ifmo_celery_grader.models import GraderTask
         # Получаем связанные данные
         grader_payload = kwargs.get('grader_payload')
         system_payload = kwargs.get('system_payload')
@@ -79,6 +78,8 @@ class GraderTaskBase(Task):
         :return:
         """
 
+        from courseware.models import StudentModule
+        from ifmo_celery_grader.models import GraderTask
         # Получаем связанные данные
         grader_payload = kwargs.get('grader_payload')
         system_payload = kwargs.get('system_payload')
@@ -129,6 +130,7 @@ class GraderTaskBase(Task):
 
         :return:
         """
+        from ifmo_celery_grader.models import GraderTask
         task = GraderTask.objects.get(task_id=task_id)
         task.task_state = FAILURE
         task.task_output = exc.message
@@ -146,6 +148,7 @@ class GraderTaskBase(Task):
         :return:
         """
 
+        from courseware.models import StudentModule
         system_payload = kwargs.get('system_payload')
 
         # Получаем связанный модуль
@@ -253,6 +256,7 @@ def reserve_task(xblock=None, save=False, grader_payload=None, system_payload=No
     :return:
     """
 
+    from ifmo_celery_grader.models import GraderTask
     # Создаём запись в базе
     task = GraderTask.create(grader_payload=grader_payload, student_input=student_input, task_type=task_type,
                              system_payload=system_payload)
